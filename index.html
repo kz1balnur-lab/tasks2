@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="kk" data-fs="1" data-scheme="default" data-img="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Physics | 7-сынып</title>
+<meta name="description" content="7-сынып физика, ІІ тоқсан: деңгейлік тапсырмалар (А, В, С, ЕБҚ)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230F172A' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='1'/%3E%3Cpath d='M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z'/%3E%3Cpath d='M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<link rel="stylesheet" href="assets/css/style.css?v=7.9.5">
+<link rel="stylesheet" href="assets/css/theme-pastel.css?v=7.9.5">
+<link rel="stylesheet" href="assets/css/fiziq.css?v=7.9.5">
+<meta name="theme-color" content="#efe6ff">
+</head>
+<body>
+<a class="skip" href="#workspace" data-i18n="skip">Негізгі мазмұнға өтіңіз</a>
+
+<div class="app" id="layout">
+  <!-- ═════════ СОЛ ЖАҚ НАВИГАЦИЯ ═════════ -->
+  <aside class="sidebar" id="topicsPanel" data-i18n-aria="topicsTitle" aria-label="ІІ тоқсан тақырыптары">
+    <div class="sb-brand">
+      <span class="sb-logo" data-icon="atom" data-icon-size="22"></span>
+      <div>
+        <div class="sb-title">PHYSICS</div>
+        <div class="sb-sub">Learning Platform</div>
+      </div>
+      <button class="icon-btn sb-collapse" id="btnCollapseLeft" data-icon="panelLeft" data-i18n-title="hidePanel" data-i18n-aria="hidePanel" title="Панельді жасыру" aria-label="Панельді жасыру"></button>
+    </div>
+    <div class="sb-meta">7-СЫНЫП / II ТОҚСАН</div>
+    <div class="sb-section" data-i18n="topics">Тақырыптар</div>
+    <nav class="topic-list" id="topicList"></nav>
+    <div class="sb-foot">
+      <label class="student-name">
+        <span data-icon="user" data-icon-size="15"></span>
+        <input id="studentName" type="text" autocomplete="name" placeholder="Аты-жөніңіз" data-i18n-ph="namePh" data-i18n-aria="nameAria" aria-label="Оқушының аты-жөні">
+      </label>
+    </div>
+  </aside>
+
+  <!-- ═════════ ОРТАҢҒЫ ЖҰМЫС АЙМАҒЫ ═════════ -->
+  <main class="workspace" id="workspace" tabindex="-1">
+    <div class="ws-bar">
+      <button class="icon-btn" id="btnOpenTopics" data-icon="menu" data-i18n-aria="topics" aria-label="Тақырыптар"></button>
+      <button class="icon-btn" id="btnExpandLeft" hidden data-icon="panelLeft" data-i18n-title="showTopics" data-i18n-aria="showTopics" title="Тақырыптарды ашу" aria-label="Тақырыптарды ашу"></button>
+      <nav class="crumbs" id="crumbs" aria-label="Breadcrumb"></nav>
+      <div class="ws-actions">
+        <div class="lang-switch" role="group" aria-label="Тіл / Язык / Language">
+          <button data-lang="kk" class="active">ҚАЗ</button><button data-lang="ru">РУС</button><button data-lang="en">ENG</button>
+        </div>
+        <button class="icon-btn" id="btnA11y" data-icon="eye" aria-expanded="false" data-i18n-title="a11yBtn" data-i18n-aria="a11yBtn" title="Нашар көретіндерге"></button>
+        <button class="icon-btn" id="btnAI" data-icon="panelRight" aria-expanded="true" data-i18n-title="aiTitle" data-i18n-aria="aiTitle" title="AI көмекші"></button>
+      </div>
+    </div>
+
+    <!-- Нашар көретіндерге арналған панель -->
+    <div class="a11y-bar" id="a11yBar" hidden>
+      <div class="a11y-group" role="group" data-i18n-aria="fontSize" aria-label="Қаріп өлшемі">
+        <button class="a11y-btn fs1 active" data-fs="1" data-i18n-title="fs1" title="Қалыпты қаріп">A</button>
+        <button class="a11y-btn fs2" data-fs="2" data-i18n-title="fs2" title="Үлкен қаріп">A</button>
+        <button class="a11y-btn fs3" data-fs="3" data-i18n-title="fs3" title="Өте үлкен қаріп">A</button>
+      </div>
+      <div class="a11y-group" role="group" data-i18n-aria="colorScheme" aria-label="Түс схемасы">
+        <button class="a11y-btn sch-default active" data-scheme="default" data-i18n-title="schDefault" title="Ақ фон">Aa</button>
+        <button class="a11y-btn sch-bw" data-scheme="bw" data-i18n-title="schBw" title="Қара фон, ақ мәтін">Aa</button>
+        <button class="a11y-btn sch-by" data-scheme="by" data-i18n-title="schBy" title="Қара фон, сары мәтін">Aa</button>
+        <button class="a11y-btn sch-blue" data-scheme="blue" data-i18n-title="schBlue" title="Көгілдір фон">Aa</button>
+      </div>
+      <div class="a11y-group">
+        <button class="a11y-btn" id="btnImgMode" data-icon="image" data-icon-size="18" data-i18n-title="imgMode" title="Суреттер"></button>
+        <button class="a11y-btn" id="btnA11yReset" data-icon="eye" data-icon-size="18" data-i18n-title="a11yReset" title="Қалыпты нұсқа"></button>
+      </div>
+      <span class="a11y-note" id="imgModeLabel"></span>
+    </div>
+
+    <div class="ws-body"><div id="view"></div></div>
+  </main>
+
+  <!-- ═════════ ОҢ ЖАҚ: AI КӨМЕКШІ ═════════ -->
+  <aside class="ai-panel fq" id="aiWidget" aria-label="FIZIQ AI"></aside>
+</div>
+<div class="scrim" id="scrim" hidden></div>
+
+<!-- Калькулятор батырмасы -->
+<button class="calc-fab" id="btnCalc" aria-expanded="false" data-icon="calculator"><span data-i18n="calc">Калькулятор</span></button>
+
+<!-- ═════════ КАЛЬКУЛЯТОР ═════════ -->
+<section class="calc sci" id="calc" hidden data-i18n-aria="calc" aria-label="Калькулятор">
+  <header class="calc-head" id="calcHead">
+    <span data-i18n="calc">Калькулятор</span>
+    <span class="calc-flags"><span class="calc-flag" id="calcAngle">DEG</span><span class="calc-flag" id="calcMem" hidden>M</span></span>
+    <span class="grow"></span>
+    <button class="calc-sci-btn" id="calcSci" type="button" aria-pressed="true" data-i18n-title="calcSciMode" title="Ғылыми функциялар">f(x)</button>
+    <button class="icon-btn" id="calcClose" data-icon="x" data-i18n-aria="close" aria-label="Жабу"></button>
+  </header>
+  <div class="calc-screen">
+    <div class="calc-hist" id="calcHist"></div>
+    <input class="calc-expr" id="calcExpr" inputmode="decimal" autocomplete="off" spellcheck="false" data-i18n-aria="calcExpr" aria-label="Өрнек">
+    <div class="calc-res" id="calcRes">0</div>
+  </div>
+  <div class="calc-keys" id="calcKeys"></div>
+</section>
+
+<!-- ═════════ МОДАЛЬДЫ ТЕРЕЗЕ ═════════ -->
+<div class="modal-wrap" id="modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <header><h3 id="modalTitle"></h3><button class="icon-btn" id="modalClose" data-icon="x" data-i18n-aria="close" aria-label="Жабу"></button></header>
+    <div class="modal-body" id="modalBody"></div>
+    <footer id="modalFoot"></footer>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="pdfReport" class="pdf-report" aria-hidden="true"></div>
+
+<script src="assets/js/config.js?v=7.9.5"></script>
+<!-- Сыртқы кітапханалар (нақты нұсқалары бекітілген) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.1/math.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathlive@0.101.0/dist/mathlive.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- Деректер -->
+<script src="assets/js/tasks-data.js?v=7.9.5"></script>
+<script src="assets/js/descriptors.js?v=7.9.5"></script>
+<script src="assets/js/task-text-fixes.js?v=7.9.5"></script>
+<script src="assets/js/topics-meta.js?v=7.9.5"></script>
+<script src="assets/js/checks.js?v=7.9.5"></script>
+<!-- Платформа модульдері -->
+<script src="assets/js/icons.js?v=7.9.5"></script>
+<script src="assets/js/i18n.js?v=7.9.5"></script>
+<script src="assets/js/store.js?v=7.9.5"></script>
+<script src="assets/js/render.js?v=7.9.5"></script>
+<script src="assets/js/checker.js?v=7.9.5"></script>
+<script src="assets/js/solcheck.js?v=7.9.5"></script>
+<script src="assets/js/explain.js?v=7.9.5"></script>
+<script src="assets/js/explain-rules.js?v=7.9.5"></script>
+<script src="assets/js/graph.js?v=7.9.5"></script>
+<script src="assets/js/ebq.js?v=7.9.5"></script>
+<script src="assets/js/ebq-map.js?v=7.9.5"></script>
+<script src="assets/js/grading.js?v=7.9.5"></script>
+<script src="assets/js/editor.js?v=7.9.5"></script>
+<script src="assets/js/board.js?v=7.9.5"></script>
+<script src="assets/js/calc.js?v=7.9.5"></script>
+<script src="assets/js/ai.js?v=7.9.5"></script>
+<script src="assets/js/fiziq-kb.js?v=7.9.5"></script>
+<script src="assets/js/fiziq.js?v=7.9.5"></script>
+<script src="assets/js/translate.js?v=7.9.5"></script>
+<script src="assets/js/pdf.js?v=7.9.5"></script>
+<script src="assets/js/app.js?v=7.9.5"></script>
+</body>
+</html>
