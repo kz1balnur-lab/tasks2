@@ -1,0 +1,345 @@
+/* ═══════════════════════════════════════════════════════════
+   Dreamy Pastel & Glassmorphism тақырыбы
+   style.css-тен кейін қосылады. Тек әдепкі түс схемасына қолданылады —
+   «Нашар көретіндерге» контрастты схемалары (қара/сары/көгілдір) өзгеріссіз қалады.
+   ═══════════════════════════════════════════════════════════ */
+html[data-scheme="default"] {
+  /* Пастель палитра — қара/күңгірт түс жоқ, мәтін жұмсақ күлгін */
+  --lavender: #cdb8ff;
+  --rose: #ffc4dd;
+  --sky: #b8e4ff;
+  --butter: #fff1b8;
+  --mint: #bff3dc;
+
+  --bg: #f7f1ff;
+  --surface: rgba(255, 255, 255, .55);
+  --surface-2: rgba(255, 255, 255, .38);
+  --surface-3: rgba(255, 255, 255, .62);
+  --line: rgba(255, 255, 255, .75);
+  --line-strong: rgba(181, 160, 235, .55);
+  --ink: #4b3f72;          /* тақырыптар: жұмсақ терең күлгін */
+  --text: #4f4870;         /* негізгі мәтін */
+  --muted: #7c7299;
+  --slate: #5f567f;
+  --accent: #9b7bf2;
+  --accent-soft: rgba(205, 184, 255, .38);
+  --accent-line: rgba(167, 139, 250, .55);
+  --ok: #2f9b74; --ok-soft: rgba(191, 243, 220, .55); --ok-line: rgba(76, 190, 145, .45);
+  --warn: #c0861a; --warn-soft: rgba(255, 241, 184, .6); --warn-line: rgba(232, 190, 90, .5);
+  --err: #d2557c; --err-soft: rgba(255, 196, 221, .5); --err-line: rgba(232, 120, 160, .45);
+  --lvA: #5fcf9e; --lvB: #f3c654; --lvC: #f58fb1; --lvEBQ: #7fb6f5; --lvX: #b79cf7;
+
+  --grad-main: linear-gradient(120deg, #d9c8ff 0%, #ffcde4 50%, #c6e9ff 100%);
+  --grad-soft: linear-gradient(120deg, rgba(217, 200, 255, .75), rgba(255, 205, 228, .75), rgba(198, 233, 255, .75));
+  --glass-blur: blur(18px) saturate(160%);
+  --glow: 0 0 0 3px rgba(205, 184, 255, .35), 0 8px 26px rgba(184, 140, 255, .38), 0 2px 10px rgba(255, 170, 210, .3);
+  --shadow: 0 4px 18px rgba(150, 120, 220, .12), 0 1px 3px rgba(150, 120, 220, .08);
+  --shadow-lg: 0 18px 50px rgba(150, 120, 220, .22), 0 4px 14px rgba(255, 170, 210, .18);
+  --r: 18px; --r-sm: 12px;
+}
+
+/* ── Ағып тұратын градиент торы (gradient mesh) ── */
+html[data-scheme="default"] body {
+  background: #f7f1ff;
+  color: var(--text);
+}
+html[data-scheme="default"] body::before,
+html[data-scheme="default"] body::after {
+  content: ''; position: fixed; inset: -20%; z-index: -1; pointer-events: none;
+}
+html[data-scheme="default"] body::before {
+  background:
+    radial-gradient(38% 42% at 18% 22%, rgba(205, 184, 255, .95) 0%, transparent 70%),
+    radial-gradient(34% 40% at 82% 18%, rgba(255, 196, 221, .9) 0%, transparent 70%),
+    radial-gradient(40% 44% at 78% 82%, rgba(184, 228, 255, .95) 0%, transparent 70%),
+    radial-gradient(36% 40% at 22% 85%, rgba(255, 241, 184, .9) 0%, transparent 70%),
+    radial-gradient(30% 30% at 50% 50%, rgba(191, 243, 220, .55) 0%, transparent 70%);
+  filter: blur(40px);
+  animation: meshFlow 26s ease-in-out infinite alternate;
+}
+html[data-scheme="default"] body::after {
+  background:
+    radial-gradient(28% 32% at 65% 40%, rgba(255, 196, 221, .55) 0%, transparent 70%),
+    radial-gradient(30% 34% at 35% 60%, rgba(184, 228, 255, .5) 0%, transparent 70%);
+  filter: blur(50px);
+  animation: meshFlow2 34s ease-in-out infinite alternate;
+}
+@keyframes meshFlow {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(3%, -2%, 0) rotate(8deg) scale(1.06); }
+  100% { transform: translate3d(-3%, 3%, 0) rotate(-6deg) scale(1.02); }
+}
+@keyframes meshFlow2 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(-4%, 4%, 0) scale(1.12); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-scheme="default"] body::before, html[data-scheme="default"] body::after { animation: none; }
+}
+
+/* ── Шыны (glass) беттер: панельдер, карточкалар, терезелер ── */
+html[data-scheme="default"] .sidebar,
+html[data-scheme="default"] .ai-panel,
+html[data-scheme="default"] .ws-bar,
+html[data-scheme="default"] .a11y-bar,
+html[data-scheme="default"] .task-card,
+html[data-scheme="default"] .obj-info,
+html[data-scheme="default"] details.ref,
+html[data-scheme="default"] .calc,
+html[data-scheme="default"] .modal,
+html[data-scheme="default"] .rb-menu,
+html[data-scheme="default"] .calc-fab,
+html[data-scheme="default"] .lesson-btn.home-lesson {
+  background: var(--surface);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+html[data-scheme="default"] .sidebar { border-width: 0 1px 0 0; background: rgba(255, 255, 255, .42); }
+html[data-scheme="default"] .ai-panel { border-width: 0 0 0 1px; background: rgba(255, 255, 255, .42); }
+html[data-scheme="default"] .ws-bar { border-width: 0 0 1px 0; background: rgba(255, 255, 255, .4); box-shadow: none; }
+html[data-scheme="default"] .a11y-bar { border-width: 0 0 1px 0; }
+html[data-scheme="default"] .task-card { border-radius: 22px; box-shadow: var(--shadow-lg); }
+html[data-scheme="default"] .task-card::before { width: 5px; border-radius: 22px 0 0 22px; background: linear-gradient(180deg, var(--lc), rgba(255, 255, 255, .4)); }
+html[data-scheme="default"] .task-card.is-active { box-shadow: 0 0 0 2px rgba(205, 184, 255, .55), var(--shadow-lg); }
+html[data-scheme="default"] .modal { background: rgba(255, 255, 255, .7); border-radius: 22px; }
+html[data-scheme="default"] .modal-wrap { background: rgba(214, 196, 255, .35); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+html[data-scheme="default"] .calc { border-radius: 22px; background: rgba(255, 255, 255, .62); }
+
+/* Карточка ішіндегі бөліктер — жартылай мөлдір */
+html[data-scheme="default"] .task-head,
+html[data-scheme="default"] .task-section + .task-section,
+html[data-scheme="default"] .desc-panel,
+html[data-scheme="default"] .result-panel,
+html[data-scheme="default"] .tr-banner { border-color: rgba(255, 255, 255, .7); }
+html[data-scheme="default"] .task-actions { background: rgba(255, 255, 255, .55); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur); border-color: rgba(255, 255, 255, .7); border-radius: 0 0 22px 22px; }
+html[data-scheme="default"] .tr-banner, html[data-scheme="default"] .task-obj { background: rgba(255, 255, 255, .3); }
+
+/* ── Логотип және бренд ── */
+html[data-scheme="default"] .sb-logo { background: var(--grad-main); color: #6b4fc9; border-radius: 12px; box-shadow: 0 6px 18px rgba(184, 140, 255, .35); }
+html[data-scheme="default"] .sb-title {
+  background: linear-gradient(90deg, #8f6cf0, #e47bb0 55%, #5aa8e8); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+html[data-scheme="default"] .eyebrow, html[data-scheme="default"] .sb-meta { color: #8f7fbf; }
+html[data-scheme="default"] .page-head h1, html[data-scheme="default"] .welcome h1 {
+  background: linear-gradient(90deg, #6d4fd1, #c95f9d 60%, #4f8fd6); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* ── Батырмалар: ашық градиент + hover кезінде жұмсақ жарқырау ── */
+html[data-scheme="default"] .btn {
+  border-radius: 999px; border: 1px solid rgba(255, 255, 255, .8);
+  background: rgba(255, 255, 255, .6); color: var(--ink);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  transition: box-shadow 220ms ease, transform 220ms ease, background 220ms ease;
+}
+html[data-scheme="default"] .btn:hover { background: rgba(255, 255, 255, .85); box-shadow: var(--glow); transform: translateY(-1px); border-color: rgba(255, 255, 255, .95); }
+html[data-scheme="default"] .btn-primary,
+html[data-scheme="default"] .btn-green {
+  background: var(--grad-main); background-size: 180% 180%; color: #4a3290; border-color: rgba(255, 255, 255, .9); font-weight: 600;
+  box-shadow: 0 6px 18px rgba(184, 140, 255, .3);
+}
+html[data-scheme="default"] .btn-primary:hover,
+html[data-scheme="default"] .btn-green:hover {
+  background: var(--grad-main); background-size: 180% 180%; background-position: 100% 50%;
+  box-shadow: var(--glow); border-color: #fff;
+}
+html[data-scheme="default"] .btn-danger { color: var(--err); }
+html[data-scheme="default"] .btn.active { background: var(--grad-soft); color: #5a3fb8; border-color: #fff; }
+html[data-scheme="default"] .icon-btn { border-radius: 12px; color: #8a7fb0; transition: background 200ms ease, box-shadow 200ms ease, color 200ms ease; }
+html[data-scheme="default"] .icon-btn:hover, html[data-scheme="default"] .icon-btn.active { background: rgba(255, 255, 255, .7); color: #6b4fc9; box-shadow: 0 0 0 3px rgba(205, 184, 255, .3), 0 6px 16px rgba(184, 140, 255, .25); }
+html[data-scheme="default"] .link-btn { color: #8a63e8; }
+html[data-scheme="default"] .skip { background: var(--grad-main); color: #4a3290; }
+
+/* ── Навигация ── */
+html[data-scheme="default"] .nav-lessons { border-left-color: rgba(205, 184, 255, .55); }
+html[data-scheme="default"] .lesson-btn, html[data-scheme="default"] .topic-btn { border-radius: 12px; transition: background 200ms ease, box-shadow 200ms ease; }
+html[data-scheme="default"] .lesson-btn:hover, html[data-scheme="default"] .topic-btn:hover { background: rgba(255, 255, 255, .6); box-shadow: 0 4px 14px rgba(184, 140, 255, .18); }
+html[data-scheme="default"] .lesson-btn.active, html[data-scheme="default"] .topic-btn.active { background: var(--grad-soft); color: #4a3290; box-shadow: 0 6px 18px rgba(184, 140, 255, .25); }
+html[data-scheme="default"] .lesson-btn.active::before, html[data-scheme="default"] .topic-btn.active::before { background: linear-gradient(180deg, #a78bfa, #f59ac2); width: 3px; }
+html[data-scheme="default"] .lesson-btn.active .lesson-no { color: #8a63e8; }
+html[data-scheme="default"] .lesson-btn.home-lesson { border-radius: 16px; }
+html[data-scheme="default"] .lesson-btn.home-lesson:hover { box-shadow: var(--glow); }
+html[data-scheme="default"] .crumbs .cur { color: #6b4fc9; }
+html[data-scheme="default"] .lang-switch { border-radius: 999px; border-color: rgba(255, 255, 255, .85); background: rgba(255, 255, 255, .45); }
+html[data-scheme="default"] .lang-switch button { background: transparent; }
+html[data-scheme="default"] .lang-switch button.active { background: var(--grad-soft); color: #5a3fb8; }
+html[data-scheme="default"] .student-name { border-radius: 999px; background: rgba(255, 255, 255, .55); border-color: rgba(255, 255, 255, .85); }
+
+/* ── Оқу мақсаттары, деңгей қойындылары, бейдждер ── */
+html[data-scheme="default"] .obj-info { border-radius: 20px; background: linear-gradient(135deg, rgba(255, 255, 255, .62), rgba(240, 230, 255, .45)); }
+html[data-scheme="default"] .obj-info-head svg { color: #b07be8; }
+html[data-scheme="default"] .code { background: rgba(255, 255, 255, .7); border-color: rgba(205, 184, 255, .6); color: #6b4fc9; border-radius: 8px; }
+html[data-scheme="default"] .level-tabs { border-bottom-color: rgba(205, 184, 255, .45); gap: .35rem; padding-bottom: .4rem; }
+html[data-scheme="default"] .level-tab { border-radius: 999px; background: rgba(255, 255, 255, .45); border: 1px solid rgba(255, 255, 255, .8); transition: box-shadow 200ms ease, background 200ms ease; }
+html[data-scheme="default"] .level-tab:hover { background: rgba(255, 255, 255, .8); box-shadow: var(--glow); }
+html[data-scheme="default"] .level-tab.active::after { display: none; }
+html[data-scheme="default"] .level-tab .lv-mark { width: 9px; height: 9px; border-radius: 50%; box-shadow: 0 0 8px var(--lc); }
+html[data-scheme="default"] .section-title { color: #8f7fbf; }
+html[data-scheme="default"] .sol-tag { border-radius: 6px; background: rgba(255, 255, 255, .6); color: #8a63e8; border-color: rgba(205, 184, 255, .6); }
+html[data-scheme="default"] .pill { border-radius: 999px; background: rgba(255, 255, 255, .6); }
+
+/* ── Мазмұн, кестелер, хабарламалар ── */
+html[data-scheme="default"] .content table { background: rgba(255, 255, 255, .55); border-radius: 12px; overflow: hidden; }
+html[data-scheme="default"] .content td, html[data-scheme="default"] .content th, html[data-scheme="default"] .desc-table td, html[data-scheme="default"] .desc-table th { border-color: rgba(205, 184, 255, .45); }
+html[data-scheme="default"] .content tr:first-child td, html[data-scheme="default"] .desc-table th { background: linear-gradient(120deg, rgba(217, 200, 255, .5), rgba(198, 233, 255, .5)); color: #5a4b8a; }
+html[data-scheme="default"] .content .box, html[data-scheme="default"] .content .remember, html[data-scheme="default"] .content .helper, html[data-scheme="default"] .ebq-banner {
+  background: rgba(255, 255, 255, .5); border-radius: 14px; border-color: rgba(205, 184, 255, .55);
+}
+html[data-scheme="default"] .content .remember, html[data-scheme="default"] .content .box.box-help { border-left: 3px solid #b79cf7; }
+html[data-scheme="default"] .ebq-banner { border-left: 3px solid var(--lvEBQ); }
+html[data-scheme="default"] figure.fig img { border-radius: 14px; border-color: rgba(255, 255, 255, .9); box-shadow: 0 6px 20px rgba(150, 120, 220, .15); }
+html[data-scheme="default"] .notice { border-radius: 14px; border-color: rgba(255, 255, 255, .8); border-left-width: 3px; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+html[data-scheme="default"] .notice.info { background: rgba(198, 233, 255, .45); border-left-color: #8ec5f2; }
+html[data-scheme="default"] .notice.warn { background: rgba(255, 241, 184, .55); border-left-color: #f0c45a; }
+html[data-scheme="default"] .notice.err { background: rgba(255, 196, 221, .5); border-left-color: #f08fb5; }
+html[data-scheme="default"] .solution-box { background: linear-gradient(135deg, rgba(191, 243, 220, .5), rgba(255, 255, 255, .55)); border-radius: 18px; border-color: rgba(120, 210, 170, .5); border-left: 3px solid #6fd6a8; }
+html[data-scheme="default"] .answer-hl { background: rgba(255, 255, 255, .65); border-radius: 12px; }
+html[data-scheme="default"] .desc-table { border-radius: 14px; overflow: hidden; }
+html[data-scheme="default"] .desc-table input[type="checkbox"], html[data-scheme="default"] .consent input { accent-color: #a78bfa; }
+
+/* ── Жауаптар, таңдау батырмалары, өрістер ── */
+html[data-scheme="default"] .answers { border-radius: 18px; border-color: rgba(255, 255, 255, .8); background: rgba(255, 255, 255, .3); }
+html[data-scheme="default"] .ans-row { background: rgba(255, 255, 255, .4); border-bottom-color: rgba(205, 184, 255, .35); }
+html[data-scheme="default"] .ans-row input[type="text"], html[data-scheme="default"] .ai-input, html[data-scheme="default"] .ocr-lines select {
+  background: rgba(255, 255, 255, .75); border-color: rgba(205, 184, 255, .55); border-radius: 12px;
+}
+html[data-scheme="default"] .ans-row input[type="text"]:focus, html[data-scheme="default"] .ai-input:focus { border-color: #b79cf7; box-shadow: 0 0 0 4px rgba(205, 184, 255, .35); }
+html[data-scheme="default"] .choice { border-radius: 999px; background: rgba(255, 255, 255, .6); border-color: rgba(205, 184, 255, .55); transition: box-shadow 200ms ease, background 200ms ease; }
+html[data-scheme="default"] .choice:hover { box-shadow: var(--glow); background: rgba(255, 255, 255, .85); }
+html[data-scheme="default"] .choice.sel { background: var(--grad-main); color: #4a3290; border-color: #fff; box-shadow: 0 4px 14px rgba(184, 140, 255, .35); }
+
+/* ── Редактор және тақта ── */
+html[data-scheme="default"] .mode-tabs { border-bottom-color: rgba(205, 184, 255, .45); gap: .3rem; }
+html[data-scheme="default"] .mode-tabs button { border-radius: 999px 999px 0 0; }
+html[data-scheme="default"] .mode-tabs button.active { background: rgba(255, 255, 255, .6); color: #5a3fb8; }
+html[data-scheme="default"] .mode-tabs button.active::after { background: linear-gradient(90deg, #a78bfa, #f59ac2, #7fc3f5); height: 3px; border-radius: 3px; }
+html[data-scheme="default"] .ribbon-wrap { background: rgba(255, 255, 255, .5); border-color: rgba(255, 255, 255, .85); border-radius: 18px 18px 0 0; }
+html[data-scheme="default"] .rb-group { border-right-color: rgba(205, 184, 255, .45); }
+html[data-scheme="default"] .rb-big:hover, html[data-scheme="default"] .rb-small:hover, html[data-scheme="default"] .rb-mode:hover, html[data-scheme="default"] .rb-sym:hover, html[data-scheme="default"] .rb-more:hover, html[data-scheme="default"] .rb-tile:hover {
+  background: rgba(255, 255, 255, .85); border-color: rgba(205, 184, 255, .6); box-shadow: 0 4px 14px rgba(184, 140, 255, .25);
+}
+html[data-scheme="default"] .rb-mode.active { background: var(--grad-soft); border-color: #fff; }
+html[data-scheme="default"] .rb-gallery, html[data-scheme="default"] .rb-more { background: rgba(255, 255, 255, .7); border-color: rgba(205, 184, 255, .5); }
+html[data-scheme="default"] .rb-icon, html[data-scheme="default"] .rb-sicon, html[data-scheme="default"] .rb-sym, html[data-scheme="default"] .rb-tile { color: #5a4b8a; }
+html[data-scheme="default"] .editor-lines { background: rgba(255, 255, 255, .62); border-color: rgba(255, 255, 255, .85); border-radius: 0 0 18px 18px; }
+html[data-scheme="default"] .ed-kind { border-radius: 8px; background: rgba(255, 255, 255, .7); }
+html[data-scheme="default"] .ed-line textarea:focus, html[data-scheme="default"] .ed-line math-field:focus-within { border-color: #c9b3ff; box-shadow: 0 0 0 4px rgba(205, 184, 255, .3); background: rgba(255, 255, 255, .9); }
+html[data-scheme="default"] .ed-line math-field { --caret-color: #9b7bf2; --selection-background-color: #eadfff; --primary: #9b7bf2; color: #4f4870; }
+html[data-scheme="default"] .board-wrap { border-radius: 18px; border-color: rgba(255, 255, 255, .85); background: rgba(255, 255, 255, .5); }
+html[data-scheme="default"] .board-tools, html[data-scheme="default"] .board-foot { background: rgba(255, 255, 255, .5); border-color: rgba(205, 184, 255, .4); }
+html[data-scheme="default"] .board-tools .bt { border-radius: 10px; color: #6b5c9a; }
+html[data-scheme="default"] .board-tools .bt:hover { background: rgba(255, 255, 255, .85); box-shadow: 0 4px 12px rgba(184, 140, 255, .25); }
+html[data-scheme="default"] .board-tools .bt.active { background: var(--grad-soft); color: #5a3fb8; border-color: #fff; }
+html[data-scheme="default"] .board-tools .bt-ocr { background: var(--grad-main); color: #4a3290; border-color: #fff; border-radius: 999px; padding: 0 .8rem; }
+html[data-scheme="default"] .board-tools .bt-ocr:hover { box-shadow: var(--glow); }
+html[data-scheme="default"] .board-canvas-holder { background: #fffefe; }
+
+/* ── ИИ панелі ── */
+html[data-scheme="default"] .ai-head, html[data-scheme="default"] .ai-status-line, html[data-scheme="default"] .ai-bottom { border-color: rgba(205, 184, 255, .4); }
+html[data-scheme="default"] .ai-title { background: linear-gradient(90deg, #8f6cf0, #e47bb0); -webkit-background-clip: text; background-clip: text; color: transparent; }
+html[data-scheme="default"] .ai-dot { background: #d6cdea; }
+html[data-scheme="default"] .ai-dot.on { background: #6fd6a8; box-shadow: 0 0 8px #6fd6a8; }
+html[data-scheme="default"] .ai-settings { background: rgba(255, 255, 255, .35); }
+html[data-scheme="default"] .ai-context { background: rgba(255, 255, 255, .5); border-radius: 14px; }
+html[data-scheme="default"] .msg.user { background: var(--grad-soft); border-color: #fff; color: #4a3290; border-radius: 18px 18px 6px 18px; }
+html[data-scheme="default"] .msg.bot { border-left-color: #c9b3ff; }
+html[data-scheme="default"] .msg.sys { background: rgba(255, 255, 255, .5); border-radius: 12px; }
+html[data-scheme="default"] .quick-prompts button { border-radius: 999px; background: rgba(255, 255, 255, .6); border-color: rgba(205, 184, 255, .5); transition: box-shadow 200ms ease; }
+html[data-scheme="default"] .quick-prompts button:hover:not(:disabled) { box-shadow: var(--glow); background: rgba(255, 255, 255, .85); }
+html[data-scheme="default"] .chat-input { border-radius: 20px; background: rgba(255, 255, 255, .7); border-color: rgba(205, 184, 255, .55); }
+html[data-scheme="default"] .chat-input:focus-within { border-color: #b79cf7; box-shadow: 0 0 0 4px rgba(205, 184, 255, .3); }
+html[data-scheme="default"] .send-btn, html[data-scheme="default"] .ai-load { background: var(--grad-main); color: #5a3fb8; border-radius: 14px; border: 1px solid #fff; transition: box-shadow 200ms ease; }
+html[data-scheme="default"] .send-btn:hover, html[data-scheme="default"] .ai-load:hover { background: var(--grad-main); box-shadow: var(--glow); }
+
+/* ── Калькулятор ── */
+html[data-scheme="default"] .calc-fab { border-radius: 999px; color: #5a3fb8; transition: box-shadow 220ms ease, transform 220ms ease; }
+html[data-scheme="default"] .calc-fab:hover { box-shadow: var(--glow); transform: translateY(-1px); background: rgba(255, 255, 255, .8); }
+html[data-scheme="default"] .calc-head { background: var(--grad-soft); border-color: rgba(255, 255, 255, .8); color: #5a3fb8; }
+html[data-scheme="default"] .calc-screen { border-color: rgba(205, 184, 255, .4); }
+html[data-scheme="default"] .calc-keys { background: transparent; gap: 6px; padding: 8px; }
+html[data-scheme="default"] .calc-keys button { border-radius: 12px; background: rgba(255, 255, 255, .65); color: #4f4870; transition: box-shadow 180ms ease, background 180ms ease; }
+html[data-scheme="default"] .calc-keys button:hover { background: rgba(255, 255, 255, .95); box-shadow: 0 0 0 2px rgba(205, 184, 255, .4), 0 4px 12px rgba(184, 140, 255, .3); }
+html[data-scheme="default"] .calc-keys .k-fn { background: rgba(255, 241, 184, .6); color: #8a6a1c; }
+html[data-scheme="default"] .calc-keys .k-op { background: rgba(205, 184, 255, .5); color: #6b4fc9; }
+html[data-scheme="default"] .calc-keys .k-eq, html[data-scheme="default"] .calc-keys .k-eq:hover { background: var(--grad-main); color: #4a3290; }
+html[data-scheme="default"] .calc-keys .k-eq:hover { box-shadow: var(--glow); }
+
+/* ── Тост, мәртебе ── */
+html[data-scheme="default"] .toast { background: rgba(255, 255, 255, .85); color: #5a3fb8; border: 1px solid #fff; border-radius: 999px; -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur); }
+html[data-scheme="default"] .status-chip.checked::before { box-shadow: 0 0 6px var(--ok); }
+html[data-scheme="default"] .level-tab .st-dot.checked { box-shadow: 0 0 6px var(--ok); }
+
+/* ── Телефон ── */
+@media (max-width: 1100px) {
+  html[data-scheme="default"] .sidebar, html[data-scheme="default"] .ai-panel { background: rgba(255, 255, 255, .78); }
+  html[data-scheme="default"] .scrim { background: rgba(214, 196, 255, .35); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+}
+@media (max-width: 760px) {
+  html[data-scheme="default"] .task-card { border-radius: 18px; }
+  html[data-scheme="default"] .task-actions { border-radius: 0 0 18px 18px; }
+  html[data-scheme="default"] body::before { filter: blur(30px); }
+}
+/* backdrop-filter қолдамайтын браузерлер үшін — мөлдірлікті азайту */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  html[data-scheme="default"] .sidebar, html[data-scheme="default"] .ai-panel, html[data-scheme="default"] .task-card, html[data-scheme="default"] .modal, html[data-scheme="default"] .calc { background: rgba(255, 255, 255, .88); }
+}
+
+/* ═════════ Оқуға ыңғайлы болу үшін барлық мәтін — қара ═════════ */
+html[data-scheme="default"] {
+  --ink: #000000; --text: #000000; --muted: #1f1f1f; --slate: #000000;
+}
+html[data-scheme="default"] body,
+html[data-scheme="default"] .content,
+html[data-scheme="default"] .page-head h1, html[data-scheme="default"] .welcome h1,
+html[data-scheme="default"] .sb-title, html[data-scheme="default"] .ai-title,
+html[data-scheme="default"] .eyebrow, html[data-scheme="default"] .sb-meta, html[data-scheme="default"] .section-title,
+html[data-scheme="default"] .crumbs, html[data-scheme="default"] .crumbs button, html[data-scheme="default"] .crumbs .cur,
+html[data-scheme="default"] .lesson-btn, html[data-scheme="default"] .lesson-btn.active, html[data-scheme="default"] .lesson-no, html[data-scheme="default"] .lesson-btn.active .lesson-no,
+html[data-scheme="default"] .nav-section-title, html[data-scheme="default"] .sb-section, html[data-scheme="default"] .sb-sub,
+html[data-scheme="default"] .btn, html[data-scheme="default"] .btn-primary, html[data-scheme="default"] .btn-green, html[data-scheme="default"] .btn.active,
+html[data-scheme="default"] .choice, html[data-scheme="default"] .choice.sel, html[data-scheme="default"] .level-tab, html[data-scheme="default"] .level-tab .lv-pts,
+html[data-scheme="default"] .code, html[data-scheme="default"] .sol-tag, html[data-scheme="default"] .msg.user, html[data-scheme="default"] .msg.bot,
+html[data-scheme="default"] .calc-fab, html[data-scheme="default"] .calc-head, html[data-scheme="default"] .calc-keys button, html[data-scheme="default"] .calc-keys .k-fn, html[data-scheme="default"] .calc-keys .k-op, html[data-scheme="default"] .calc-keys .k-eq,
+html[data-scheme="default"] .toast, html[data-scheme="default"] .link-btn, html[data-scheme="default"] .icon-btn, html[data-scheme="default"] .mode-tabs button, html[data-scheme="default"] .mode-tabs button.active,
+html[data-scheme="default"] .board-tools .bt, html[data-scheme="default"] .board-tools .bt-ocr, html[data-scheme="default"] .rb-icon, html[data-scheme="default"] .rb-sicon, html[data-scheme="default"] .rb-sym, html[data-scheme="default"] .rb-tile,
+html[data-scheme="default"] .rb-label, html[data-scheme="default"] .rb-mode, html[data-scheme="default"] .rb-small,
+html[data-scheme="default"] .content tr:first-child td, html[data-scheme="default"] .desc-table th, html[data-scheme="default"] .desc-crit,
+html[data-scheme="default"] .ai-sub, html[data-scheme="default"] .ai-status-line, html[data-scheme="default"] .ai-note, html[data-scheme="default"] .consent, html[data-scheme="default"] .ai-context, html[data-scheme="default"] .ai-context b,
+html[data-scheme="default"] .task-no, html[data-scheme="default"] .task-points, html[data-scheme="default"] .page-meta, html[data-scheme="default"] .kbd-hint, html[data-scheme="default"] .save-state,
+html[data-scheme="default"] .obj-info-head, html[data-scheme="default"] .obj-info-text, html[data-scheme="default"] .ans-label, html[data-scheme="default"] .ans-label .u, html[data-scheme="default"] .ans-open,
+html[data-scheme="default"] .notice, html[data-scheme="default"] .solution-box h4, html[data-scheme="default"] .sec-label, html[data-scheme="default"] .status-chip, html[data-scheme="default"] .board-foot,
+html[data-scheme="default"] .lang-switch button, html[data-scheme="default"] .lang-switch button.active, html[data-scheme="default"] .student-name, html[data-scheme="default"] .student-name input,
+html[data-scheme="default"] .calc-expr, html[data-scheme="default"] .calc-res, html[data-scheme="default"] .calc-hist, html[data-scheme="default"] .msg.sys, html[data-scheme="default"] .self-score, html[data-scheme="default"] .result-summary > b {
+  color: #000;
+  -webkit-text-fill-color: currentColor;
+}
+html[data-scheme="default"] .page-head h1, html[data-scheme="default"] .welcome h1, html[data-scheme="default"] .sb-title, html[data-scheme="default"] .ai-title { background: none; }
+html[data-scheme="default"] ::placeholder { color: #4a4a4a; opacity: 1; }
+html[data-scheme="default"] .ed-line math-field { color: #000; }
+/* Нәтиже түстері (жасыл/қызыл/сары) мағынасы үшін сақталады, бірақ күңгірттеу */
+html[data-scheme="default"] .res-ok .res-msg, html[data-scheme="default"] .pill.ok { color: #0b6b3a; }
+html[data-scheme="default"] .res-wrong .res-msg, html[data-scheme="default"] .pill.bad { color: #a3123a; }
+html[data-scheme="default"] .res-partial .res-msg, html[data-scheme="default"] .res-unsure .res-msg, html[data-scheme="default"] .pill.warn { color: #7a4d00; }
+html[data-scheme="default"] .grade-box { background: rgba(255,255,255,.72); border-color: rgba(120,100,180,.25); }
+html[data-scheme="default"] .grade-head, html[data-scheme="default"] .grade-score, html[data-scheme="default"] .g-fb, html[data-scheme="default"] .g-st,
+html[data-scheme="default"] .grade-table td, html[data-scheme="default"] .grade-table th, html[data-scheme="default"] .ebq-note, html[data-scheme="default"] .ts-title { color: #000; -webkit-text-fill-color: currentColor; }
+html[data-scheme="default"] .calc { width: 330px; }
+html[data-scheme="default"] .calc-keys { gap: 5px; padding: 7px; }
+html[data-scheme="default"] .calc-keys .k-sci { background: rgba(196, 226, 255, .6); color: #000; }
+html[data-scheme="default"] .calc-keys .k-mem { background: rgba(255, 255, 255, .45); color: #000; border: 1px solid rgba(205, 184, 255, .45); }
+html[data-scheme="default"] .calc-flag, html[data-scheme="default"] .calc-sci-btn { color: #000; background: rgba(255,255,255,.75); border-color: rgba(205, 184, 255, .6); }
+html[data-scheme="default"] .calc-sci-btn.active { background: #1b2559; color: #fff; }
+@media (max-width: 640px) { html[data-scheme="default"] .calc { width: calc(100vw - 32px); } }
+html[data-scheme="default"] .sol-write-hint, html[data-scheme="default"] .ana-box { background: rgba(255,255,255,.7); border-color: rgba(120,100,180,.25); color: #000; }
+html[data-scheme="default"] .ana-list li { background: rgba(245,242,255,.8); color: #000; }
+html[data-scheme="default"] .ana-m, html[data-scheme="default"] .ana-box > summary { color: #000; }
+html[data-scheme="default"] .ebq-blank, html[data-scheme="default"] .ebq-opt, html[data-scheme="default"] .ebq-cell, html[data-scheme="default"] .ebq-optp { color: #000; -webkit-text-fill-color: currentColor; }
+html[data-scheme="default"] .ebq-cell { color: transparent; -webkit-text-fill-color: transparent; }
+html[data-scheme="default"] .ebq-cell.sel { color: #000; -webkit-text-fill-color: #000; }
+html[data-scheme="default"] .ebq-opt { background: rgba(255,255,255,.8); }
+html[data-scheme="default"] .ebq-opt.sel, html[data-scheme="default"] .ebq-cell.sel, html[data-scheme="default"] .ebq-optp.sel { background: #e4dcff; }
+html[data-scheme="default"] .gr-box { background: rgba(255,255,255,.72); border-color: rgba(120,100,180,.25); }
+html[data-scheme="default"] .gr-head, html[data-scheme="default"] .gr-foot, html[data-scheme="default"] .gr-hint, html[data-scheme="default"] .gr-read { color: #000; -webkit-text-fill-color: currentColor; }
+html[data-scheme="default"] .gr-result, html[data-scheme="default"] .gr-ref-t { color: #000; -webkit-text-fill-color: currentColor; }
+html[data-scheme="default"] .gr-legend { color: #000; -webkit-text-fill-color: currentColor; }
